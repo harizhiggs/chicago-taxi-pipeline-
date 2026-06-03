@@ -10,11 +10,18 @@ End-to-end local analytics pipeline: ingest taxi trip data, model it in DuckDB, 
 
 ### One-command setup
 
-**Windows (PowerShell):**
+**Windows (recommended — works when PowerShell blocks `.ps1` scripts):**
+
+```cmd
+scripts\setup.bat
+.\.venv\Scripts\python.exe scripts\verify.py
+```
+
+**Windows (PowerShell, if scripts are allowed):**
 
 ```powershell
-.\scripts\setup.ps1
-python scripts\verify.py
+powershell -ExecutionPolicy Bypass -File .\scripts\setup.ps1
+.\.venv\Scripts\python.exe scripts\verify.py
 ```
 
 **macOS / Linux:**

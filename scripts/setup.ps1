@@ -1,24 +1,26 @@
 # Bootstrap the Chicago taxi pipeline on Windows.
-# Run from project root: .\scripts\setup.ps1
+# Prefer: scripts\setup.bat (works when PowerShell script execution is restricted)
+# Or:     powershell -ExecutionPolicy Bypass -File .\scripts\setup.ps1
 
 $ErrorActionPreference = "Stop"
 $ProjectRoot = Split-Path -Parent $PSScriptRoot
 Set-Location $ProjectRoot
 
+$Python = Join-Path $ProjectRoot ".venv\Scripts\python.exe"
+$Pip = Join-Path $ProjectRoot ".venv\Scripts\pip.exe"
+
 Write-Host "Creating virtual environment..."
 python -m venv .venv
 
-Write-Host "Activating virtual environment..."
-& .\.venv\Scripts\Activate.ps1
-
 Write-Host "Installing dependencies..."
-pip install -r requirements.txt
+& $Pip install -r requirements.txt
 
 Write-Host "Running pipeline (generate sample data + load warehouse)..."
-python src/run_pipeline.py --generate
+& $Python src/run_pipeline.py --generate
 
 Write-Host "Exporting Parquet for BI..."
-python src/export_for_bi.py
+& $Python src/export_for_bi.py
 
 Write-Host ""
-Write-Host "Setup complete. Verify with: python scripts/verify.py"
+Write-Host "Setup complete. Verify with:"
+Write-Host "  .\.venv\Scripts\python.exe scripts\verify.py"

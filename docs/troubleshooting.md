@@ -14,11 +14,40 @@ C:\dev\chicago-taxi-pipeline
 
 Then re-run setup. Close any process using `.venv\Scripts\python.exe` (terminals, Jupyter kernels) before recreating the venv.
 
+## PowerShell script execution disabled
+
+If you see **"running scripts is disabled on this system"** when running `setup.ps1`:
+
+**Option A — use the batch wrapper (easiest):**
+
+```cmd
+scripts\setup.bat
+```
+
+**Option B — bypass for one command:**
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\setup.ps1
+```
+
+**Option C — manual setup (no `.ps1` at all):**
+
+```cmd
+python -m venv .venv
+.venv\Scripts\pip.exe install -r requirements.txt
+.venv\Scripts\python.exe src\run_pipeline.py --generate
+.venv\Scripts\python.exe src\export_for_bi.py
+.venv\Scripts\python.exe scripts\verify.py
+```
+
+Note: `Activate.ps1` is also blocked by default policy — use `.venv\Scripts\python.exe` and `.venv\Scripts\pip.exe` directly instead of activating.
+
 ## Virtual environment and pip
 
 | Symptom | Fix |
 |---------|-----|
-| `ModuleNotFoundError: duckdb` | Activate `.venv` and run `pip install -r requirements.txt` |
+| `ModuleNotFoundError: duckdb` when running `verify.py` | Run `.\scripts\setup.ps1` first (creates venv + installs deps + runs pipeline). Then use `.\.venv\Scripts\python.exe scripts\verify.py` or activate `.venv` before `python scripts\verify.py` |
+| `ModuleNotFoundError: duckdb` (general) | Activate `.venv` and run `pip install -r requirements.txt` |
 | venv created but `python` is wrong interpreter | Use full path: `.venv\Scripts\python.exe` (Windows) or `.venv/bin/python` (macOS/Linux) |
 | venv copy warnings on Windows | See clone path section above |
 

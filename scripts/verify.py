@@ -5,7 +5,15 @@ from __future__ import annotations
 import sys
 from pathlib import Path
 
-import duckdb
+try:
+    import duckdb
+except ModuleNotFoundError:
+    print("Missing dependency: duckdb")
+    print("Run setup first, then verify with the project venv:")
+    print("  .\\scripts\\setup.ps1          # Windows")
+    print("  ./scripts/setup.sh             # macOS/Linux")
+    print("Or: .venv\\Scripts\\python.exe scripts\\verify.py")
+    raise SystemExit(1)
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(PROJECT_ROOT / "src"))
