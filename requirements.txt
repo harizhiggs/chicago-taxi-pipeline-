@@ -1,0 +1,7 @@
+# Core pipeline and notebook charts
+duckdb>=1.0.0,<2.0.0
+pandas>=2.0.0,<3.0.0
+matplotlib>=3.8.0,<4.0.0
+
+# Optional: install for Jupyter notebook work
+# pip install -r requirements-notebook.txt

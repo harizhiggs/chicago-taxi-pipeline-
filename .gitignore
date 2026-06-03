@@ -1,0 +1,41 @@
+# DuckDB warehouse
+*.duckdb
+*.duckdb.wal
+
+# Raw and processed data (regenerate locally)
+data/raw/*.csv
+data/processed/*.parquet
+data/processed/*.csv
+
+# Keep directory placeholders
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+
+# Jupyter
+.ipynb_checkpoints/
+
+# IDE
+.vscode/*
+!.vscode/settings.json.example
+.idea/
+
+# Personal / local-only docs
+lessons_learned/
+.cursor/
+project_plan.md
+
+# Portfolio exports (generate locally)
+docs/*.html
+docs/screenshots/*.png
+!docs/screenshots/.gitkeep
+
+# OS
+.DS_Store
+Thumbs.db
