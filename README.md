@@ -49,15 +49,26 @@ Expected result from `verify.py`: five warehouse tables with rows and four Parqu
 
 ### Jupyter notebook
 
-After the pipeline runs:
+After the pipeline runs, register the venv as a notebook kernel:
 
-```bash
-pip install -r requirements-notebook.txt
+**Windows:**
+
+```cmd
+scripts\register_notebook_kernel.bat
 ```
 
-Open `notebooks/exploration.ipynb` in Jupyter or VS Code and select the `.venv` kernel.
+**macOS / Linux:**
 
-Optional — copy [`.vscode/settings.json.example`](.vscode/settings.json.example) to `.vscode/settings.json` so Cursor/VS Code uses the project interpreter.
+```bash
+chmod +x scripts/register_notebook_kernel.sh
+./scripts/register_notebook_kernel.sh
+```
+
+Open `notebooks/exploration.ipynb` in Cursor or VS Code, then in the **kernel picker** (top-right) choose **Chicago Taxi (.venv)**.
+
+If it does not appear: `Ctrl+Shift+P` → **Notebook: Select Notebook Kernel** → **Chicago Taxi (.venv)** or **Python Environments** → `.venv`. Reload the window if the list is stale.
+
+See [Troubleshooting — Jupyter](docs/troubleshooting.md#jupyter-notebook) if the kernel still will not connect.
 
 ## What the pipeline does
 

@@ -56,26 +56,32 @@ Note: `Activate.ps1` is also blocked by default policy — use `.venv\Scripts\py
 
 ## Jupyter notebook
 
-The notebook requires the pipeline to run first and optional notebook dependencies:
+The notebook requires the pipeline to run first, then notebook dependencies and a registered kernel.
 
-```bash
-pip install -r requirements-notebook.txt
-python src/run_pipeline.py --generate
+**Windows (recommended):**
+
+```cmd
+scripts\register_notebook_kernel.bat
 ```
 
-### Kernel not using project venv
+**Manual:**
 
-In Cursor or VS Code:
-
-1. Open `notebooks/exploration.ipynb`
-2. Kernel picker (top-right) → select **Python Environments** → `.venv`
-3. If the list is stale: `Ctrl+Shift+P` → **Developer: Reload Window**
-
-Optional — register a named kernel:
-
-```bash
-python -m ipykernel install --user --name=data-pipeline --display-name="Data Pipeline (.venv)"
+```cmd
+.venv\Scripts\python.exe -m pip install -r requirements-notebook.txt
+.venv\Scripts\python.exe -m ipykernel install --user --name=chicago-taxi-pipeline --display-name="Chicago Taxi (.venv)"
 ```
+
+Copy [`.vscode/settings.json.example`](../.vscode/settings.json.example) to `.vscode/settings.json` if Cursor does not offer `.venv` under Python Environments.
+
+### Cannot select .venv as kernel
+
+1. Run `scripts\register_notebook_kernel.bat` (installs `ipykernel` + registers the kernel).
+2. Open `notebooks/exploration.ipynb`.
+3. Kernel picker → **Chicago Taxi (.venv)**.
+4. If missing: `Ctrl+Shift+P` → **Notebook: Select Notebook Kernel** → **Chicago Taxi (.venv)** or **Python Environments** → path ending in `.venv\Scripts\python.exe`.
+5. `Ctrl+Shift+P` → **Developer: Reload Window**, then pick the kernel again.
+
+Confirm the Jupyter extension is enabled in Cursor/VS Code (Python + Jupyter).
 
 ### Cells stuck on "pending"
 
