@@ -35,15 +35,14 @@ python scripts/verify.py
 ### Manual setup
 
 ```bash
-# From project root
+# From project root (use venv Python directly on Windows if Activate.ps1 is blocked)
 python -m venv .venv
-.venv\Scripts\activate          # Windows
-# source .venv/bin/activate     # macOS/Linux
-
-pip install -r requirements.txt
-python src/run_pipeline.py --generate
-python src/export_for_bi.py
-python scripts/verify.py
+.venv\Scripts\python.exe -m pip install --upgrade pip    # Windows
+.venv\Scripts\python.exe -m pip install -r requirements.txt
+.venv\Scripts\python.exe -m pip install "duckdb>=1.0.0,<2.0.0"
+.venv\Scripts\python.exe src\run_pipeline.py --generate
+.venv\Scripts\python.exe src\export_for_bi.py
+.venv\Scripts\python.exe scripts\verify.py
 ```
 
 Expected result from `verify.py`: five warehouse tables with rows and four Parquet files in `data/processed/`.

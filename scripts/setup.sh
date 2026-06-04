@@ -5,22 +5,28 @@
 set -euo pipefail
 
 cd "$(dirname "$0")/.."
+PYTHON=".venv/bin/python"
 
 echo "Creating virtual environment..."
 python3 -m venv .venv
 
-echo "Activating virtual environment..."
-# shellcheck disable=SC1091
-source .venv/bin/activate
+echo "Upgrading pip..."
+"$PYTHON" -m pip install --upgrade pip
 
-echo "Installing dependencies..."
-pip install -r requirements.txt
+echo "Installing dependencies from requirements.txt..."
+"$PYTHON" -m pip install -r requirements.txt
+
+echo "Ensuring duckdb is installed..."
+"$PYTHON" -m pip install "duckdb>=1.0.0,<2.0.0"
+
+echo "Verifying duckdb import..."
+"$PYTHON" -c "import duckdb; print('OK  duckdb', duckdb.__version__)"
 
 echo "Running pipeline (generate sample data + load warehouse)..."
-python src/run_pipeline.py --generate
+"$PYTHON" src/run_pipeline.py --generate
 
 echo "Exporting Parquet for BI..."
-python src/export_for_bi.py
+"$PYTHON" src/export_for_bi.py
 
 echo ""
-echo "Setup complete. Verify with: python scripts/verify.py"
+echo "Setup complete. Verify with: .venv/bin/python scripts/verify.py"

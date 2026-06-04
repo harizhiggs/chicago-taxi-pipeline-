@@ -10,9 +10,9 @@ try:
 except ModuleNotFoundError:
     print("Missing dependency: duckdb")
     print("Run setup first, then verify with the project venv:")
-    print("  .\\scripts\\setup.ps1          # Windows")
-    print("  ./scripts/setup.sh             # macOS/Linux")
-    print("Or: .venv\\Scripts\\python.exe scripts\\verify.py")
+    print("  scripts\\setup.bat              # Windows (recommended)")
+    print("  ./scripts/setup.sh              # macOS/Linux")
+    print("Then: .venv\\Scripts\\python.exe scripts\\verify.py")
     raise SystemExit(1)
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent

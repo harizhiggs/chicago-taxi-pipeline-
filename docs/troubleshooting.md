@@ -34,7 +34,10 @@ powershell -ExecutionPolicy Bypass -File .\scripts\setup.ps1
 
 ```cmd
 python -m venv .venv
-.venv\Scripts\pip.exe install -r requirements.txt
+.venv\Scripts\python.exe -m pip install --upgrade pip
+.venv\Scripts\python.exe -m pip install -r requirements.txt
+.venv\Scripts\python.exe -m pip install "duckdb>=1.0.0,<2.0.0"
+.venv\Scripts\python.exe -c "import duckdb; print(duckdb.__version__)"
 .venv\Scripts\python.exe src\run_pipeline.py --generate
 .venv\Scripts\python.exe src\export_for_bi.py
 .venv\Scripts\python.exe scripts\verify.py
