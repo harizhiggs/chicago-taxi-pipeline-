@@ -108,7 +108,7 @@ Run steps in this order:
 
 1. `python src/run_pipeline.py --generate` — sample CSV + DuckDB warehouse
 2. `python src/export_for_bi.py` — Parquet in `data/processed/`
-3. Notebook or Metabase (optional)
+3. Notebook (any PC) or Metabase (**Docker-capable PC only** — see [Two-machine workflow](metabase-local-setup.md#two-machine-workflow-pipeline-pc--metabase-pc))
 
 Verify everything with:
 
@@ -127,6 +127,7 @@ Metabase is optional. See [metabase-local-setup.md](metabase-local-setup.md).
 | Container name already in use | `docker rm -f metabase` then re-run the `docker run` command |
 | Port 3000 in use | Use `-p 3001:3000` and open http://localhost:3001 |
 | Empty charts in Metabase | Re-run `python src/export_for_bi.py` after the pipeline |
+| Docker unusable on main PC (PATH, daemon, WSL) | Run the full demo on a second PC: [metabase-local-setup.md — Two-machine workflow](metabase-local-setup.md#two-machine-workflow-pipeline-pc--metabase-pc) (`git pull`, `setup.bat`, Docker, Parquet upload) |
 
 ### Docker Desktop install choice (Windows)
 
