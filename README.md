@@ -70,6 +70,20 @@ If it does not appear: `Ctrl+Shift+P` → **Notebook: Select Notebook Kernel** �
 
 See [Troubleshooting — Jupyter](docs/troubleshooting.md#jupyter-notebook) if the kernel still will not connect.
 
+## Full portfolio demo path
+
+End-to-end artifacts for a portfolio or team walkthrough:
+
+| Step | Where | Action |
+|------|--------|--------|
+| 1 | Any PC | Clone to a path **without spaces**; run `scripts\setup.bat` (or `setup.sh`); `.venv\Scripts\python.exe scripts\verify.py` |
+| 2 | Any PC | `scripts\register_notebook_kernel.bat`; run [notebooks/exploration.ipynb](notebooks/exploration.ipynb) |
+| 3 | **Docker-capable PC** | Install and start Docker Desktop; follow [Metabase setup](docs/metabase-local-setup.md) |
+| 4 | Metabase PC | Build three suggested Metabase questions; export PNGs to `docs/screenshots/` |
+| 5 | Any PC | Fill [docs/chicago-taxi-demand-memo.md](docs/chicago-taxi-demand-memo.md) |
+
+If Docker does not work on your main machine, run steps 1–2 there and steps 3–4 on a second PC with Docker. See [Two-machine workflow](docs/metabase-local-setup.md#two-machine-workflow-pipeline-pc--metabase-pc).
+
 ## What the pipeline does
 
 ```text
@@ -130,7 +144,12 @@ Warehouse file: `data/warehouse.duckdb` (created locally, not committed).
 
 ## Optional: Metabase
 
-See [docs/metabase-local-setup.md](docs/metabase-local-setup.md). Requires Docker.
+Metabase runs in Docker and reads Parquet exports from `data/processed/`.
+
+- **Same machine:** [docs/metabase-local-setup.md](docs/metabase-local-setup.md) (requires Docker).
+- **Two machines:** When Docker is not available on your main PC, run the pipeline and notebook on either machine, then run Metabase on a [Docker-capable secondary PC](docs/metabase-local-setup.md#two-machine-workflow-pipeline-pc--metabase-pc) (`git pull`, `setup.bat`, upload Parquet, screenshots).
+
+Optional helpers on Windows: `scripts\check-docker.bat`, `scripts\start-metabase.bat`.
 
 ## Hosting path
 
